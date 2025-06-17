@@ -1,5 +1,3 @@
-# Agent of Retribution Library
-
 use POSIX qw(ceil);
 
 sub OfferStandardInstance {
