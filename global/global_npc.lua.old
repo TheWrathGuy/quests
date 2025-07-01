@@ -29,3 +29,13 @@ function event_spawn(e)
         end
     end
 end
+
+function event_death(e)
+    local npc_name = e.self:GetCleanName()
+    local zone_id = eq.get_zone_id()
+
+    if eq.is_zone_bonus_active("coin") then
+        e.self:Shout("💰 " .. npc_name .. " died in zone " .. zone_id .. " with coin bonus active!")
+        -- You can call your coin doubling logic here
+    end
+end
