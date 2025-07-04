@@ -12,3 +12,21 @@ sub ZoneHasBonusType {
 
     return $row ? 1 : 0;
 }
+
+sub GetJuiceZonesByType {
+    my $dbh = plugin::LoadMysql();
+
+    my $query = "SELECT bonus_type, zone_short_name FROM daily_juice_zones";
+    my $sth = $dbh->prepare($query);
+    $sth->execute();
+
+    my %bonuses;
+    while (my ($type, $zone_short_name) = $sth->fetchrow_array) {
+        push @{ $bonuses{$type} }, quest::GetZoneLongName($zone_short_name);
+    }
+
+    $sth->finish;
+    $dbh->disconnect;
+    return %bonuses;
+}
+
